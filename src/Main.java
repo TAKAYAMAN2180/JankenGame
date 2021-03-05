@@ -1,10 +1,34 @@
+import java.util.InputMismatchException;
+
 public class Main {
     public static void main(String[] args) {
         int countSelf = 0;
         int countCompanion = 0;
+        int handSelf = 0;
         System.out.println("出す手を選んで数字を入力してね。相手より先に３回勝とう！\n1:グー　2：チョキ　3：パー");
+//ブロックの中の変数を外で使いたいなら、その外で変数を定義する
         while (countCompanion < 3 && countSelf < 3) {
-            int handSelf = new java.util.Scanner(System.in).nextInt();
+            try {
+                handSelf = new java.util.Scanner(System.in).nextInt();
+                //3以上を入力したときの処理
+            } catch (InputMismatchException e) {
+                System.out.println("3以下の数字を記入して下さい");
+                continue;
+            }
+            if (handSelf > 3) {
+
+                //参照型のStringかIntegerを調べたいときは　instanceof (String もしくは Integer)
+
+                /*
+                変数の宣言　→　<型名> <変数名> ＝ <初期値>
+                変数への代入　→　<変数名> = 値
+                 ※ 一度定義した変数に対して変数の宣言は使えない/ブロック跨げない
+                 */
+
+                System.out.println("3以下の数字を入力してね。\n1:グー　2：チョキ　3：パー");
+                handSelf = new java.util.Scanner(System.in).nextInt();
+            }
+
             int handCompanion = new java.util.Random().nextInt(3) + 1;
             //1:グー　2：チョキ　3：パー
             int victory = handSelf - handCompanion;
@@ -42,5 +66,9 @@ public class Main {
         } else {
             System.out.println("相手の優勝です…");
         }
+
+
     }
 }
+
+
